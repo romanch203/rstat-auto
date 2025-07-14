@@ -1,0 +1,36 @@
+---
+title: "Statistical Analysis Report"
+output: pdf_document
+params:
+  data: NA
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(dplyr)
+data <- params$data
+```
+
+## Summary Statistics
+
+```{r summary}
+summary(data)
+```
+
+## Visualizations
+
+```{r plots, eval = is.data.frame(data)}
+if (is.data.frame(data)) {
+  numeric_data <- data %>% select(where(is.numeric))
+  for (colname in names(numeric_data)) {
+    print(ggplot(numeric_data, aes_string(x = colname)) + 
+          geom_histogram(bins = 30, fill = "blue", color = "white") +
+          labs(title = paste("Histogram of", colname)))
+  }
+}
+```
+
+## Interpretation & Conclusion
+
+This auto-generated report summarizes and visualizes your data. Patterns, outliers, and distributions are revealed for better decision-making.
