@@ -1,0 +1,2 @@
+# rstat-auto
+R project
